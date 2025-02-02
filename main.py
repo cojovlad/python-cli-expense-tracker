@@ -4,16 +4,19 @@ from datetime import datetime
 
 data_file = 'expenses.json'
 
+# Load data from the file or return empty data if the file doesn't exist
 def load_data():
     if os.path.exists(data_file):
         with open(data_file, 'r') as file:
             return json.load(file)
     return {"expenses": [], "budget": {}}
 
+# Save updated data back to the file
 def save_data(data):
     with open(data_file, 'w') as file:
         json.dump(data, file, indent=4)
 
+# Add a new expense to the data
 def add_expense(data, description, amount, category=None):
     expense = {
         "index": len(data['expenses']),
@@ -25,6 +28,7 @@ def add_expense(data, description, amount, category=None):
     data['expenses'].append(expense)
     save_data(data)
 
+# Update an existing expense by index
 def update_expense(data, index, description, amount, category=None):
     if index < len(data['expenses']):
         data['expenses'][index] = {
@@ -38,32 +42,39 @@ def update_expense(data, index, description, amount, category=None):
     else:
         print("Invalid index.")
 
+# Delete an expense by index and reindex the list
 def delete_expense(data, index):
     if index < len(data['expenses']):
         del data['expenses'][index]
         for i, expense in enumerate(data['expenses']):
+            # Reindex remaining expenses
             expense['index'] = i
         save_data(data)
     else:
         print("Invalid index.")
 
+# View all expenses
 def view_expenses(data):
     for expense in data['expenses']:
         print(f"Index: {expense['index']} - {expense['description']} - {expense['amount']} - {expense['date']} - {expense['category']}")
 
+# Show total expenses
 def view_summary(data):
     total = sum(expense['amount'] for expense in data['expenses'])
     print(f"Total Expenses: {total}")
 
+# Show total expenses for a specific month
 def view_month_summary(data, month):
     month_expenses = [expense for expense in data['expenses'] if expense['date'].startswith(f'{datetime.now().year}-{month:02d}')]
     total = sum(expense['amount'] for expense in month_expenses)
     print(f"Total Expenses for {datetime.now().year}-{month:02d}: {total}")
 
+# Set budget for a specific month
 def set_budget(data, month, budget):
     data['budget'][month] = budget
     save_data(data)
 
+# Check if the current month's expenses exceed the budget
 def check_budget(data):
     month = datetime.now().month
     total = sum(expense['amount'] for expense in data['expenses'] if expense['date'].startswith(f'{datetime.now().year}-{month:02d}'))
@@ -72,6 +83,7 @@ def check_budget(data):
     else:
         print(f"Your expenses for this month are within the budget.")
 
+# Export expenses to a CSV file
 def export_to_csv(data):
     import csv
     with open('expenses.csv', 'w', newline='') as file:
@@ -80,6 +92,7 @@ def export_to_csv(data):
         for expense in data['expenses']:
             writer.writerow([expense['description'], expense['amount'], expense['date'], expense['category']])
 
+# Main loop for user interaction
 def main():
     data = load_data()
 
