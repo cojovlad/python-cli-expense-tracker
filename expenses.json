@@ -1,0 +1,50 @@
+{
+    "expenses": [
+        {
+            "index": 0,
+            "description": "Groceries",
+            "amount": 50.75,
+            "date": "2025-02-01",
+            "category": "Food"
+        },
+        {
+            "index": 1,
+            "description": "Movie Ticket",
+            "amount": 15.0,
+            "date": "2025-02-01",
+            "category": "Entertainment"
+        },
+        {
+            "index": 2,
+            "description": "Gas",
+            "amount": 30.0,
+            "date": "2025-02-02",
+            "category": "Transportation"
+        },
+        {
+            "index": 3,
+            "description": "Electricity Bill",
+            "amount": 100.0,
+            "date": "2025-01-28",
+            "category": "Utilities"
+        },
+        {
+            "index": 4,
+            "description": "Dining Out",
+            "amount": 40.0,
+            "date": "2025-02-03",
+            "category": "Food"
+        },
+        {
+            "index": 5,
+            "description": "Test Desc",
+            "amount": 100.0,
+            "date": "2025-02-02",
+            "category": "Food"
+        }
+    ],
+    "budget": {
+        "2": 200.0,
+        "1": 150.0
+    }
+}
